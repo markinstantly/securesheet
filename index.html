@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* General Styles */
+        /* Existing styles */
         .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
         .slider-track { background: #e2e8f0; }
         .slider-thumb { background: #3b82f6; }
@@ -52,67 +52,195 @@
             background: linear-gradient(145deg, #f0fdf4 0%, #ffffff 100%);
         }
 
-        /* Modal Styles */
-        .modal-hidden {
-            display: none !important;
-        }
-        .modal-visible {
-            display: flex !important;
-        }
-        #demoModal {
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 9999;
+        /* Attempt to mimic core popup styles */
+        /* Overlay */
+        .w-popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
+            z-index: 100001; /* High z-index */
+        }
+        .w-popup-overlay.pos_fixed {
+            position: fixed;
+        }
+        .w-popup-overlay.active {
+            display: flex; /* Use flex for centering */
             align-items: center;
+            justify-content: center;
         }
-        #demoModal .bg-white.rounded-lg.max-w-2xl.w-full.relative {
-            max-width: 700px;
-            width: 100%;
+        /* Wrap */
+        .w-popup-wrap {
+            position: relative;
+            margin: 1.5rem auto;
+            max-width: var(--popup-width, 700px);
+            width: calc(100% - 3rem); /* Account for margins */
+            max-height: calc(100vh - 3rem);
+            overflow: hidden;
             border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 100002;
         }
-        #demoModal .absolute.-top-4.-right-4 {
+        /* Closer */
+        .w-popup-closer {
+            position: absolute;
             top: -1rem;
             right: -1rem;
+            z-index: 3;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
         }
-        #demoModal .w-btn.us-btn-style_4 {
+        .w-popup-closer:hover {
+             color: #333;
+        }
+        /* Header (Mobile) */
+        .w-popup-header {
+            display: none; /* Hidden on desktop by default in original */
+            background-color: #3b82f6; /* Assuming primary color */
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 10px 10px 0 0; /* Match popup wrap radius */
+        }
+        .w-popup-header .w-popup-title {
+            font-size: 1.25rem; /* Adjust as needed */
+            font-weight: normal;
+            margin: 0;
+        }
+        .w-popup-header .w-popup-desc {
+            font-size: 0.875rem; /* Adjust as needed */
+            opacity: 0.9;
+            margin: 0.25rem 0 0 0;
+        }
+        /* Content */
+        .w-popup-content {
+             padding: 2rem; /* Match padding from form section */
+        }
+        /* Responsive: Show mobile header on small screens */
+        @media (max-width: 768px) {
+            .w-popup-header {
+                display: block;
+            }
+             /* Hide desktop-specific parts on mobile if needed */
+            .w-popup-desktop-only {
+                display: none !important;
+            }
+        }
+        /* Button Styles (Approximation) */
+        .w-btn {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-weight: 600;
+        }
+        .w-btn-style_1 { /* Primary Button Style */
             background-color: #3b82f6;
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem; /* 6px */
             font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
         }
-        #demoModal .w-btn.us-btn-style_4:hover {
-            background-color: #2c7aeb;
+        .w-btn-style_1:hover {
+            background-color: #2563eb; /* Slightly darker on hover */
         }
-        #demoModal .p-6 {
-            padding: 2rem;
+         .w-btn-style_4 { /* Watch Preview Button Style (if different) */
+            /* Use w-btn-style_1 as base or adjust */
+             background-color: #3b82f6;
+             color: white;
+             padding: 0.75rem 1.5rem;
+             border-radius: 0.375rem;
+             font-size: 1rem;
         }
-        #demoModal input[type="text"],
-        #demoModal input[type="email"],
-        #demoModal input[type="tel"] {
+        .w-btn-style_4:hover {
+             background-color: #2563eb;
+        }
+        .w-btn-label {
+             display: block;
+        }
+        /* Form Styles (Basic approximation) */
+        .w-form-row {
+            margin-bottom: 1rem;
+        }
+        .w-form-row label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151; /* Gray-700 */
+        }
+        .w-form-row input[type="text"],
+        .w-form-row input[type="email"],
+        .w-form-row input[type="tel"] {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #d1d5db; /* Gray-300 */
             border-radius: 0.375rem;
+            font-size: 1rem;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-        #demoModal input:focus {
-            border-color: #3b82f6;
+        .w-form-row input:focus {
             outline: none;
-            box-shadow: 0 0 0 0.25rem rgba(59, 130, 255, 0.25);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
-        #demoModal iframe {
+        .w-form-required {
+            color: #ef4444; /* Red-500 */
+        }
+        /* Hide original site's popup elements if they exist (unlikely in standalone) */
+        .calendly-lifecycle-optibutton_singleton,
+        .calendly-frame-tag,
+        .w-popup-overlay:not(#demoModal),
+        .w-popup-wrap:not(#demoModalWrap) {
+            display: none !important;
+        }
+
+        /* Specific styles for the video section to match structure */
+        #watch-preview-wrap {
+            text-align: center;
+            padding: 2rem 1.5rem; /* Match content padding */
+        }
+        #watch-preview-video {
+             padding: 0 1.5rem 1.5rem 1.5rem; /* Match content padding */
+        }
+        .w-video {
+            position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9;
+             /* Aspect ratio container for 16:9 */
+            padding-bottom: 56.25%; /* 9 / 16 * 100 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* Optional rounded corners */
         }
+        .w-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Initially hide the video container */
+        #watch-preview-video {
+            display: none;
+        }
+        #watch-preview-video.active {
+            display: block;
+        }
+
     </style>
 </head>
 <body class="bg-gray-50">
@@ -122,7 +250,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                     <div class="bg-white bg-opacity-0 p-2 rounded">
-                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-light.webp" class="attachment-full size-full" alt="securesheet logo" loading="eager" decoding="async" srcset="https://securesheet.com/wp-content/uploads/securesheet-logo-light.webp 250w, https://securesheet.com/wp-content/uploads/securesheet-logo-light-200x24.webp 200w" sizes="auto, (max-width: 250px) 100vw, 250px" fetchpriority="high">
+                    <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-light.webp" class="attachment-full size-full" alt="securesheet logo" loading="eager" decoding="async" srcset="https://securesheet.com/wp-content/uploads/securesheet-logo-light.webp 250w, https://securesheet.com/wp-content/uploads/securesheet-logo-light-200x24.webp 200w" sizes="auto, (max-width: 250px) 100vw, 250px" fetchpriority="high">
                     </div>
                 </div>
                 <div class="text-right">
@@ -419,165 +547,218 @@
         </div>
     </div>
     <!-- Footer -->
-    <footer class="bg-black text-white">
-        <div class="container mx-auto px-6 py-8">
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Company Info Section -->
-                <div class="md:col-span-1">
-                    <div class="mb-6">
-                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" class="mb-4" alt="securesheet logo" loading="lazy">
-                    </div>
-                    <p class="text-gray-400 text-sm mb-6">
-                        SecureSheet Technologies, LLC is a privately held company founded in 2003 with a vision of turning your spreadsheet chaos into managed business processes. Our focus is on usability and exceptional customer service.
-                    </p>
-                    <!-- Demo Request Button -->
-                    <button class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" onclick="openDemoModal()">
-                        Request a Demo
-                    </button>
-                </div>
-                <!-- Contact Section -->
-                <div class="md:col-span-1">
-                    <h4 class="text-lg font-semibold text-gray-400 mb-4">Contact</h4>
-                    <div class="space-y-2 text-sm text-gray-400 mb-6">
-                        <p><a href="mailto:sales@securesheet.com" class="hover:text-blue-600">sales@securesheet.com</a></p>
-                        <p><a href="mailto:help@securesheet.com" class="hover:text-blue-600">help@securesheet.com</a></p>
-                        <p><a href="tel:877.475.1153" class="hover:text-blue-600">877.475.1153</a></p>
-                    </div>
-                    <!-- Social Media -->
-                    <div class="flex space-x-4">
-                        <a href="https://twitter.com/securesheet" target="_blank" class="text-gray-400 hover:text-blue-600">
-                            <i class="fab fa-x-twitter text-xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/securesheet-technologies/" target="_blank" class="text-gray-400 hover:text-blue-600">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                        <a href="https://www.facebook.com/SecureSheet" target="_blank" class="text-gray-400 hover:text-blue-600">
-                            <i class="fab fa-facebook text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Explore Section -->
-                <div class="md:col-span-1">
-                    <h4 class="text-lg font-semibold text-gray-400 mb-4">Explore</h4>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <ul class="space-y-2 text-sm text-gray-400">
-                                <li><a href="https://securesheet.com/product-online-spreadsheet/" class="hover:text-blue-600">Product</a></li>
-                                <li><a href="https://securesheet.com/features/" class="hover:text-blue-600">Features</a></li>
-                                <li><a href="https://securesheet.com/pricing/" class="hover:text-blue-600">Pricing</a></li>
-                                <li><a href="https://securesheet.com/support/" class="hover:text-blue-600">Support</a></li>
-                                <li><a href="https://securesheet.com/faqs/" class="hover:text-blue-600">FAQ</a></li>
-                            </ul>
+    <footer id="page-footer" class="l-footer" itemscope="" itemtype="https://schema.org/WPFooter">
+        <section class="l-section wpb_row us_custom_c6fcdd89 height_medium color_footer-bottom">
+            <div class="l-section-h i-cf">
+                <div class="g-cols vc_row via_flex valign_top type_default stacking_default">
+                    <div class="vc_col-sm-4 wpb_column vc_column_container">
+                        <div class="vc_column-inner us_custom_bcc59428">
+                            <div class="wpb_wrapper">
+                                <div class="w-image us_custom_81135851 align_none">
+                                    <a href="https://securesheet.com/" aria-label="securesheet-logo-dark" class="w-image-h">
+                                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" class="attachment-full size-full" alt="securesheet logo" loading="lazy" decoding="async" srcset="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp 250w, https://securesheet.com/wp-content/uploads/securesheet-logo-dark-200x24.webp 200w" sizes="auto, (max-width: 250px) 100vw, 250px">
+                                    </a>
+                                </div>
+                                <div class="wpb_text_column">
+                                    <div class="wpb_wrapper">
+                                        <p>SecureSheet Technologies, LLC is a privately held company founded in 2003 with a vision of turning your spreadsheet chaos into managed business processes. Our focus is on usability and exceptional customer service.</p>
+                                    </div>
+                                </div>
+                                <!-- Demo Request Button (Standalone version) -->
+                                <button class="w-btn us-btn-style_1 request-demo bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" onclick="openDemoModal()">
+                                    <span class="w-btn-label">Request a Demo</span>
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <ul class="space-y-2 text-sm text-gray-400">
-                                <li><a href="https://securesheet.com/company/" class="hover:text-blue-600">Company</a></li>
-                                <li><a href="https://securesheet.com/security/" class="hover:text-blue-600">Security Statement</a></li>
-                                <li><a href="https://securesheet.com/news/" class="hover:text-blue-600">News</a></li>
-                                <li><a href="https://securesheet.com/privacy/" class="hover:text-blue-600">Privacy</a></li>
-                                <li><a href="https://securesheet.com/terms-of-use/" class="hover:text-blue-600">Terms of Use</a></li>
-                            </ul>
+                    </div>
+                    <div class="vc_col-sm-4 wpb_column vc_column_container">
+                        <div class="vc_column-inner us_custom_0486adaf">
+                            <div class="wpb_wrapper">
+                                <div class="w-text us_custom_0070af4c">
+                                    <span class="w-text-h"><span class="w-text-value">Contact</span></span>
+                                </div>
+                                <div class="wpb_text_column us_custom_d0473ef7">
+                                    <div class="wpb_wrapper">
+                                        <p>
+                                            <a href="mailto:sales@securesheet.com">sales@securesheet.com</a><br>
+                                            <a href="mailto:help@securesheet.com">help@securesheet.com</a><br>
+                                            <a href="tel:877.475.1153">877.475.1153</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-socials us_custom_c4c549e3 has_text_color color_text shape_none" style="--gap:0.5em;">
+                                    <div class="w-socials-list">
+                                        <div class="w-socials-item twitter">
+                                            <a target="_blank" rel="nofollow" href="https://twitter.com/securesheet" class="w-socials-item-link" aria-label="X">
+                                                <span class="w-socials-item-link-hover"></span>
+                                                <i class="fab fa-x-twitter"><svg style="width:1em; margin-bottom:-.1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg></i>
+                                            </a>
+                                            <div class="w-socials-item-popup"><span>X</span></div>
+                                        </div>
+                                        <div class="w-socials-item linkedin">
+                                            <a target="_blank" rel="nofollow" href="https://www.linkedin.com/company/securesheet-technologies/" class="w-socials-item-link" aria-label="LinkedIn">
+                                                <span class="w-socials-item-link-hover"></span>
+                                                <i class="fab fa-linkedin"></i>
+                                            </a>
+                                            <div class="w-socials-item-popup"><span>LinkedIn</span></div>
+                                        </div>
+                                        <div class="w-socials-item facebook">
+                                            <a target="_blank" rel="nofollow" href="https://www.facebook.com/SecureSheet" class="w-socials-item-link" aria-label="Facebook">
+                                                <span class="w-socials-item-link-hover"></span>
+                                                <i class="fab fa-facebook"></i>
+                                            </a>
+                                            <div class="w-socials-item-popup"><span>Facebook</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vc_col-sm-4 wpb_column vc_column_container">
+                        <div class="vc_column-inner us_custom_27db4eef">
+                            <div class="wpb_wrapper">
+                                <div class="w-text us_custom_0070af4c">
+                                    <span class="w-text-h"><span class="w-text-value">Explore</span></span>
+                                </div>
+                                <div class="w-hwrapper valign_top align_none" style="--hwrapper-gap:3rem">
+                                    <nav class="w-menu us_custom_d0473ef7 layout_ver style_links us_menu_1" style="--main-gap:0.25rem;--main-ver-indent:0.8em;--main-hor-indent:0.8em;--main-color:inherit;">
+                                        <ul id="menu-footer-1" class="menu">
+                                            <li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://securesheet.com/product-online-spreadsheet/">Product</a></li>
+                                            <li id="menu-item-1583" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1583"><a href="https://securesheet.com/features/">Features</a></li>
+                                            <li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57"><a href="https://securesheet.com/pricing/">Pricing</a></li>
+                                            <li id="menu-item-58" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-58"><a href="https://securesheet.com/support/">Support</a></li>
+                                            <li id="menu-item-59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-59"><a href="https://securesheet.com/faqs/">FAQ</a></li>
+                                        </ul>
+                                        <style>@media ( max-width:600px ){.us_menu_1 .menu{display:block!important}.us_menu_1 .menu>li{margin:0 0 var(--main-gap,0.25rem)!important}}</style>
+                                    </nav>
+                                    <nav class="w-menu us_custom_d0473ef7 layout_ver style_links us_menu_2" style="--main-gap:0.25rem;--main-ver-indent:0.8em;--main-hor-indent:0.8em;--main-color:inherit;">
+                                        <ul id="menu-footer-2" class="menu">
+                                            <li id="menu-item-60" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-60"><a href="https://securesheet.com/company/">Company</a></li>
+                                            <li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="https://securesheet.com/security/">Security Statement</a></li>
+                                            <li id="menu-item-62" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-62"><a rel="privacy-policy" href="https://securesheet.com/privacy/">Privacy</a></li>
+                                            <li id="menu-item-63" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-63"><a href="https://securesheet.com/terms-of-use/">Terms of Use</a></li>
+                                        </ul>
+                                        <style>@media ( max-width:600px ){.us_menu_2 .menu{display:block!important}.us_menu_2 .menu>li{margin:0 0 var(--main-gap,0.25rem)!important}}</style>
+                                    </nav>
+                                </div>
+                                <!-- Demo Request Button (Standalone version) - Hidden on larger screens to match original -->
+                                <div class="w-btn-wrapper align_none hidden md:block">
+                                    <a class="w-btn us-btn-style_1 us_custom_5c07cc07 request-demo bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors no-underline" href="#" onclick="event.preventDefault(); openDemoModal();">
+                                        <span class="w-btn-label">Request a Demo</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Copyright Section -->
-            <div class="mt-8 text-center text-sm text-gray-400">
-                © 2002–2025 SecureSheet Technologies, LLC.
+        </section>
+        <section class="l-section wpb_row us_custom_8770fb93 height_auto color_footer-bottom">
+            <div class="l-section-h i-cf">
+                <div class="g-cols vc_row via_flex valign_top type_default stacking_default">
+                    <div class="vc_col-sm-12 wpb_column vc_column_container">
+                        <div class="vc_column-inner">
+                            <div class="wpb_wrapper">
+                                <div class="wpb_text_column us_custom_442edfb2">
+                                    <div class="wpb_wrapper">© 2002–2025 <a href="https://securesheet.com/">SecureSheet Technologies, LLC</a>.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </footer>
 
-    <!-- Demo Modal -->
-    <div id="demoModal" class="fixed inset-0 bg-black bg-opacity-85 modal-hidden z-50 items-center justify-center p-4">
-        <div class="bg-white rounded-lg max-w-2xl w-full relative">
-            <!-- Close button -->
-            <button onclick="closeDemoModal()" class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 z-10">
-                <i class="fas fa-times text-gray-600"></i>
-            </button>
-            <!-- Desktop version -->
-            <div class="hidden md:block">
-                <!-- Video Preview Section -->
-                <div id="watch-preview-wrap" class="text-center py-8 px-6">
-                    <div class="mb-4">
-                        <p class="text-xl font-normal">Request a 20-minute <strong>Demo</strong></p>
-                    </div>
-                    <div class="mb-6">
-                        <p class="text-gray-600">Find out how we can help you</p>
-                    </div>
-                    <div class="mb-6">
-                        <button class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" id="btn-watch-preview">
-                            Watch Preview
-                        </button>
-                    </div>
-                </div>
-                <!-- Video Container (initially hidden) -->
-                <div id="watch-preview-video" class="hidden px-6 pb-4">
-                    <div class="relative w-full" style="padding-bottom: 56.25%; height: 0;">
-                        <iframe
-                            title="Youtube video player"
-                            src=""
-                            data-src="https://www.youtube.com/embed/nNBsLC9XQzI?autoplay=1&controls=1&origin=https://securesheet.com&loop=0&mute=0"
-                            allowfullscreen="1"
-                            loading="lazy"
-                            class="absolute top-0 left-0 w-full h-full rounded">
-                        </iframe>
-                    </div>
-                </div>
+    <!-- Demo Modal (Replicating main site structure as closely as possible) -->
+    <!-- Overlay -->
+    <div id="demoModal" class="w-popup-overlay pos_fixed bg-black bg-opacity-85 hidden" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+        <!-- Wrap -->
+        <div id="demoModalWrap" class="w-popup-wrap">
+            <!-- Closer -->
+            <div class="w-popup-closer" onclick="closeDemoModal()" aria-label="Close popup">
+                <i class="fas fa-times"></i>
             </div>
-            <!-- Mobile version -->
-            <div class="block md:hidden bg-blue-600 text-white text-center py-6 px-4 rounded-t-lg">
-                <p class="text-xl font-normal">Request a 20-minute <strong>Demo</strong></p>
-                <p class="text-blue-200 mt-2">Find out how we can help you</p>
+
+            <!-- Header (Mobile Version) -->
+            <div class="w-popup-header">
+                <h2 class="w-popup-title">Request a 20-minute <strong>Demo</strong></h2>
+                <p class="w-popup-desc">Find out how we can help you</p>
             </div>
-            <!-- Form Section -->
-            <div class="p-6">
-                <div class="text-sm text-gray-600 mb-4">
-                    Fields marked with an <span class="text-red-500">*</span> are required
-                </div>
-                <form onsubmit="submitDemoRequest(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Name <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Name *" name="name">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Email <span class="text-red-500">*</span>
-                        </label>
-                        <input type="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Email *" name="email">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Phone <span class="text-red-500">*</span>
-                        </label>
-                        <input type="tel" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Phone *" name="phone">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Company <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Company *" name="company">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Share more about your project needs
-                        </label>
-                        <input type="text" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Share more about your project needs" name="project_needs">
-                    </div>
-                    <!-- Honeypot field (hidden) -->
-                    <div style="display: none;">
-                        <label>If you are a human seeing this field, please leave it empty.</label>
-                        <input type="text" name="honeypot" value="">
-                    </div>
-                    <button type="submit" class="w-full w-btn us-btn-style_1 bg-blue-600 text-white py-3 px-4 rounded-md font-semibold hover:bg-blue-700 transition-colors">
-                        Request Demo
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+
+            <!-- Content -->
+            <div class="w-popup-content">
+                 <!-- Desktop Preview Section (Initially shown) -->
+                 <div id="watch-preview-wrap" class="w-popup-desktop-only text-center">
+                     <h2 class="text-xl font-normal mb-2">Request a 20-minute <strong>Demo</strong></h2>
+                     <p class="text-gray-600 mb-6">Find out how we can help you</p>
+                     <button id="btn-watch-preview" class="w-btn w-btn-style_4 bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors">
+                         <span class="w-btn-label">Watch Preview</span>
+                     </button>
+                 </div>
+
+                 <!-- Video Container (Initially hidden) -->
+                 <div id="watch-preview-video">
+                     <div class="w-video">
+                         <iframe
+                             title="Youtube video player"
+                             src="" <!-- Initially empty -->
+                             data-src="https://www.youtube.com/embed/nNBsLC9XQzI?autoplay=1&controls=1&origin=https://securesheet.com&loop=0&mute=0"
+                             allowfullscreen="1"
+                             loading="lazy">
+                         </iframe>
+                     </div>
+                 </div>
+
+                 <!-- Form Section -->
+                 <div id="demo-form-section">
+                     <div class="text-sm text-gray-600 mb-4 mt-4"> <!-- Added mt-4 for spacing if video is above -->
+                         Fields marked with an <span class="w-form-required">*</span> are required
+                     </div>
+                     <form onsubmit="submitDemoRequest(event)" class="space-y-4">
+                         <div class="w-form-row">
+                             <label>
+                                 Name <span class="w-form-required">*</span>
+                             </label>
+                             <input type="text" required placeholder="Name *" name="name">
+                         </div>
+                         <div class="w-form-row">
+                             <label>
+                                 Email <span class="w-form-required">*</span>
+                             </label>
+                             <input type="email" required placeholder="Email *" name="email">
+                         </div>
+                         <div class="w-form-row">
+                             <label>
+                                 Phone <span class="w-form-required">*</span>
+                             </label>
+                             <input type="tel" required placeholder="Phone *" name="phone">
+                         </div>
+                         <div class="w-form-row">
+                             <label>
+                                 Company <span class="w-form-required">*</span>
+                             </label>
+                             <input type="text" required placeholder="Company *" name="company">
+                         </div>
+                         <div class="w-form-row">
+                             <label>
+                                 Share more about your project needs
+                             </label>
+                             <input type="text" placeholder="Share more about your project needs" name="project_needs">
+                         </div>
+                         <!-- Honeypot field (hidden) -->
+                         <div style="display: none;">
+                             <label>If you are a human seeing this field, please leave it empty.</label>
+                             <input type="text" name="honeypot" value="">
+                         </div>
+                         <button type="submit" class="w-btn w-btn-style_1 w-full bg-blue-600 text-white py-3 px-4 rounded-md font-semibold hover:bg-blue-700 transition-colors">
+                             Request Demo
+                         </button>
+                     </form>
+                 </div>
+            </div> <!-- End Content -->
+        </div> <!-- End Wrap -->
+     </div> <!-- End Overlay -->
 
     <script>
         // Global variables for calculations
@@ -588,8 +769,8 @@
             console.log("Opening modal...");
             const modal = document.getElementById('demoModal');
             if (modal) {
-                modal.classList.remove('modal-hidden');
-                modal.classList.add('modal-visible');
+                modal.classList.remove('hidden');
+                modal.classList.add('active');
                 console.log("Modal opened.");
             } else {
                 console.error("Modal element with ID 'demoModal' not found!");
@@ -600,20 +781,30 @@
             console.log("Closing modal...");
             const modal = document.getElementById('demoModal');
             if (modal) {
-                modal.classList.remove('modal-visible');
-                modal.classList.add('modal-hidden');
+                modal.classList.remove('active');
+                modal.classList.add('hidden');
+                 // Reset video when closing
+                 const videoIframe = document.querySelector('#watch-preview-video iframe');
+                 if (videoIframe) {
+                     videoIframe.src = ''; // Clear src to stop video
+                 }
+                 // Show preview button section, hide video
+                 document.getElementById('watch-preview-wrap').classList.remove('hidden');
+                 document.getElementById('watch-preview-video').classList.remove('active');
+                 document.getElementById('watch-preview-video').style.display = 'none'; // Ensure hidden
+
                 console.log("Modal closed.");
             } else {
                 console.error("Modal element with ID 'demoModal' not found!");
             }
         }
 
-        // Optional: Close modal if user clicks outside the modal content
+        // Optional: Close modal if user clicks outside the modal content (on the overlay)
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('demoModal');
             if (modal) {
                 modal.addEventListener('click', function(event) {
-                    // Check if the click was directly on the modal background (not the content)
+                    // Check if the click was directly on the modal background (overlay)
                     if (event.target === modal) {
                         closeDemoModal();
                     }
@@ -622,7 +813,28 @@
                 console.warn("Modal element for click-outside listener not found on DOMContentLoaded.");
             }
 
-            // --- END MODAL CLICK OUTSIDE LISTENER ---
+             // Handle "Watch Preview" button click
+            document.getElementById('btn-watch-preview').addEventListener('click', function () {
+                 const videoContainer = document.getElementById('watch-preview-video');
+                 const iframe = videoContainer.querySelector('iframe');
+                 const previewWrap = document.getElementById('watch-preview-wrap');
+
+                 // Set the iframe src to the YouTube video URL
+                 // Use data-src to get the URL and set it to src
+                 if (iframe && iframe.dataset.src) {
+                     iframe.src = iframe.dataset.src;
+                 }
+
+                 // Show the video container and hide the preview wrap
+                 if (videoContainer) {
+                      videoContainer.style.display = 'block'; // Use display for initial show
+                      videoContainer.classList.add('active'); // Add class for potential styling
+                 }
+                 if (previewWrap) {
+                     previewWrap.classList.add('hidden');
+                 }
+            });
+
         });
         // --- END MODAL FUNCTIONS ---
 
@@ -659,236 +871,219 @@
             const manualHours = parseInt(document.getElementById('manualHours').value);
             const cyclesPerYear = parseInt(document.getElementById('cyclesPerYear').value);
             const industryType = document.getElementById('industryType').value;
-                             // Update display values
-                    document.getElementById('companySizeValue').textContent = companySize.toLocaleString();
-                    document.getElementById('cycleDurationValue').textContent = cycleDuration;
-                    document.getElementById('hrTeamSizeValue').textContent = hrTeamSize;
-                    document.getElementById('hourlyRateValue').textContent = '$' + hourlyRate;
-                    document.getElementById('managerCountValue').textContent = managerCount;
-                    document.getElementById('currentSoftwareCostsValue').textContent = '$' + currentSoftwareCosts.toLocaleString();
-                    document.getElementById('manualHoursValue').textContent = manualHours;
-                    document.getElementById('cyclesPerYearValue').textContent = cyclesPerYear;
-                    // Calculate benefits
-                    const calculations = calculateROI({
-                        companySize, annualRevenue, cycleDuration, hrTeamSize,
-                        hourlyRate, managerCount, currentSoftwareCosts,
-                        manualHours, cyclesPerYear, industryType
-                    });
-                    // Update UI with calculations
-                    updateROIDisplay(calculations);
-                }
+            // Update display values
+            document.getElementById('companySizeValue').textContent = companySize.toLocaleString();
+            document.getElementById('cycleDurationValue').textContent = cycleDuration;
+            document.getElementById('hrTeamSizeValue').textContent = hrTeamSize;
+            document.getElementById('hourlyRateValue').textContent = '$' + hourlyRate;
+            document.getElementById('managerCountValue').textContent = managerCount;
+            document.getElementById('currentSoftwareCostsValue').textContent = '$' + currentSoftwareCosts.toLocaleString();
+            document.getElementById('manualHoursValue').textContent = manualHours;
+            document.getElementById('cyclesPerYearValue').textContent = cyclesPerYear;
+            // Calculate benefits
+            const calculations = calculateROI({
+                companySize, annualRevenue, cycleDuration, hrTeamSize,
+                hourlyRate, managerCount, currentSoftwareCosts,
+                manualHours, cyclesPerYear, industryType
+            });
+            // Update UI with calculations
+            updateROIDisplay(calculations);
+        }
 
-                function calculateROI(inputs) {
-                    const {
-                        companySize, annualRevenue, cycleDuration, hrTeamSize,
-                        hourlyRate, managerCount, currentSoftwareCosts,
-                        manualHours, cyclesPerYear, industryType
-                    } = inputs;
-                    // SecureSheet costs
-                    const usersNeeded = Math.max(25, Math.ceil((hrTeamSize + managerCount) * 1.2)); // 20% buffer
-                    const monthlySecureSheetCost = usersNeeded * 40;
-                    const annualSecureSheetCost = monthlySecureSheetCost * 12;
-                    const threeYearSecureSheetCost = annualSecureSheetCost * 3;
-                    // Time savings (75% reduction in cycle time)
-                    const currentCycleHours = cycleDuration * 40; // weeks to hours
-                    const newCycleHours = currentCycleHours * 0.25; // 75% reduction
-                    const hoursSavedPerCycle = currentCycleHours - newCycleHours;
-                    const totalPeopleInvolved = hrTeamSize + managerCount;
-                    const totalManualHoursCurrently = totalPeopleInvolved * manualHours * cyclesPerYear;
-                    const totalManualHoursWithSecureSheet = totalManualHoursCurrently * 0.25; // 75% reduction
-                    const annualHoursSaved = totalManualHoursCurrently - totalManualHoursWithSecureSheet;
-                    const annualTimeSavings = annualHoursSaved * hourlyRate;
-                    // Labor cost reduction
-                    const currentAnnualLaborCost = totalManualHoursCurrently * hourlyRate;
-                    const futureAnnualLaborCost = totalManualHoursWithSecureSheet * hourlyRate;
-                    const annualLaborSavings = currentAnnualLaborCost - futureAnnualLaborCost;
-                    // Risk mitigation (data breach cost avoidance)
-                    const averageBreachCost = 4450000; // $4.45M
-                    let riskReductionPercent = 0.4; // 40% risk reduction baseline
-                    if (industryType === 'banking') riskReductionPercent = 0.45;
-                    else if (industryType === 'insurance') riskReductionPercent = 0.42;
-                    else if (industryType === 'investment') riskReductionPercent = 0.48;
-                    const annualRiskMitigation = (averageBreachCost * riskReductionPercent) / 10; // Amortized over 10 years
-                    // Audit preparation savings (80% reduction)
-                    const estimatedAnnualAuditHours = Math.max(40, companySize / 200); // Baseline audit prep hours
-                    const auditHourlyRate = hourlyRate * 1.5; // Premium rate for audit work
-                    const currentAuditCost = estimatedAnnualAuditHours * auditHourlyRate;
-                    const futureAuditCost = currentAuditCost * 0.2; // 80% reduction
-                    const annualAuditSavings = currentAuditCost - futureAuditCost;
-                    // Error reduction benefits
-                    const errorCostPerCycle = Math.min(50000, annualRevenue / 10000); // Based on revenue size
-                    const currentErrorCost = errorCostPerCycle * cyclesPerYear;
-                    const futureErrorCost = currentErrorCost * 0.1; // 90% error reduction
-                    const annualErrorSavings = currentErrorCost - futureErrorCost;
-                    // Total annual savings
-                    const totalAnnualSavings = annualTimeSavings + annualRiskMitigation + annualAuditSavings + annualErrorSavings;
-                    // 3-year calculations
-                    const totalThreeYearSavings = totalAnnualSavings * 3;
-                    const netThreeYearSavings = totalThreeYearSavings - threeYearSecureSheetCost - (currentSoftwareCosts * 3);
-                    // ROI calculations
-                    const totalInvestment = threeYearSecureSheetCost;
-                    const roi = ((netThreeYearSavings / totalInvestment) * 100);
-                    const paybackMonths = (totalInvestment / (totalAnnualSavings / 12));
-                    return {
-                        annualTimeSavings,
-                        annualRiskMitigation,
-                        annualAuditSavings,
-                        annualErrorSavings,
-                        totalAnnualSavings,
-                        netThreeYearSavings,
-                        roi,
-                        paybackMonths,
-                        currentAnnualLaborCost,
-                        futureAnnualLaborCost,
-                        cycleDuration,
-                        newCycleDuration: Math.ceil(cycleDuration * 0.25),
-                        threeYearSecureSheetCost,
-                        totalThreeYearSavings
-                    };
-                }
+        function calculateROI(inputs) {
+            const {
+                companySize, annualRevenue, cycleDuration, hrTeamSize,
+                hourlyRate, managerCount, currentSoftwareCosts,
+                manualHours, cyclesPerYear, industryType
+            } = inputs;
+            // SecureSheet costs
+            const usersNeeded = Math.max(25, Math.ceil((hrTeamSize + managerCount) * 1.2)); // 20% buffer
+            const monthlySecureSheetCost = usersNeeded * 40;
+            const annualSecureSheetCost = monthlySecureSheetCost * 12;
+            const threeYearSecureSheetCost = annualSecureSheetCost * 3;
+            // Time savings (75% reduction in cycle time)
+            const currentCycleHours = cycleDuration * 40; // weeks to hours
+            const newCycleHours = currentCycleHours * 0.25; // 75% reduction
+            const hoursSavedPerCycle = currentCycleHours - newCycleHours;
+            const totalPeopleInvolved = hrTeamSize + managerCount;
+            const totalManualHoursCurrently = totalPeopleInvolved * manualHours * cyclesPerYear;
+            const totalManualHoursWithSecureSheet = totalManualHoursCurrently * 0.25; // 75% reduction
+            const annualHoursSaved = totalManualHoursCurrently - totalManualHoursWithSecureSheet;
+            const annualTimeSavings = annualHoursSaved * hourlyRate;
+            // Labor cost reduction
+            const currentAnnualLaborCost = totalManualHoursCurrently * hourlyRate;
+            const futureAnnualLaborCost = totalManualHoursWithSecureSheet * hourlyRate;
+            const annualLaborSavings = currentAnnualLaborCost - futureAnnualLaborCost;
+            // Risk mitigation (data breach cost avoidance)
+            const averageBreachCost = 4450000; // $4.45M
+            let riskReductionPercent = 0.4; // 40% risk reduction baseline
+            if (industryType === 'banking') riskReductionPercent = 0.45;
+            else if (industryType === 'insurance') riskReductionPercent = 0.42;
+            else if (industryType === 'investment') riskReductionPercent = 0.48;
+            const annualRiskMitigation = (averageBreachCost * riskReductionPercent) / 10; // Amortized over 10 years
+            // Audit preparation savings (80% reduction)
+            const estimatedAnnualAuditHours = Math.max(40, companySize / 200); // Baseline audit prep hours
+            const auditHourlyRate = hourlyRate * 1.5; // Premium rate for audit work
+            const currentAuditCost = estimatedAnnualAuditHours * auditHourlyRate;
+            const futureAuditCost = currentAuditCost * 0.2; // 80% reduction
+            const annualAuditSavings = currentAuditCost - futureAuditCost;
+            // Error reduction benefits
+            const errorCostPerCycle = Math.min(50000, annualRevenue / 10000); // Based on revenue size
+            const currentErrorCost = errorCostPerCycle * cyclesPerYear;
+            const futureErrorCost = currentErrorCost * 0.1; // 90% error reduction
+            const annualErrorSavings = currentErrorCost - futureErrorCost;
+            // Total annual savings
+            const totalAnnualSavings = annualTimeSavings + annualRiskMitigation + annualAuditSavings + annualErrorSavings;
+            // 3-year calculations
+            const totalThreeYearSavings = totalAnnualSavings * 3;
+            const netThreeYearSavings = totalThreeYearSavings - threeYearSecureSheetCost - (currentSoftwareCosts * 3);
+            // ROI calculations
+            const totalInvestment = threeYearSecureSheetCost;
+            const roi = ((netThreeYearSavings / totalInvestment) * 100);
+            const paybackMonths = (totalInvestment / (totalAnnualSavings / 12));
+            return {
+                annualTimeSavings,
+                annualRiskMitigation,
+                annualAuditSavings,
+                annualErrorSavings,
+                totalAnnualSavings,
+                netThreeYearSavings,
+                roi,
+                paybackMonths,
+                currentAnnualLaborCost,
+                futureAnnualLaborCost,
+                cycleDuration,
+                newCycleDuration: Math.ceil(cycleDuration * 0.25),
+                threeYearSecureSheetCost,
+                totalThreeYearSavings
+            };
+        }
 
-                function updateROIDisplay(calc) {
-                    // Executive summary
-                    document.getElementById('totalROI').textContent = Math.round(calc.roi) + '%';
-                    document.getElementById('paybackPeriod').textContent = calc.paybackMonths.toFixed(1);
-                    document.getElementById('totalSavings').textContent = '$' + (calc.netThreeYearSavings / 1000000).toFixed(1) + 'M';
-                    // Annual savings
-                    document.getElementById('timeSavingsAmount').textContent = '$' + Math.round(calc.annualTimeSavings).toLocaleString();
-                    document.getElementById('riskMitigationAmount').textContent = '$' + Math.round(calc.annualRiskMitigation).toLocaleString();
-                    document.getElementById('errorReductionAmount').textContent = '$' + Math.round(calc.annualErrorSavings).toLocaleString();
-                    document.getElementById('auditSavingsAmount').textContent = '$' + Math.round(calc.annualAuditSavings).toLocaleString();
-                    // Current vs future state
-                    document.getElementById('currentCycleDuration').textContent = calc.cycleDuration + ' weeks';
-                    document.getElementById('futureCycleDuration').textContent = calc.newCycleDuration + ' weeks';
-                    document.getElementById('currentLaborCost').textContent = '$' + Math.round(calc.currentAnnualLaborCost).toLocaleString();
-                    document.getElementById('futureLaborCost').textContent = '$' + Math.round(calc.futureAnnualLaborCost).toLocaleString();
-                    // Risk mitigation
-                    document.getElementById('dataBreachRisk').textContent = '$' + Math.round(calc.annualRiskMitigation / 1000) + 'K';
-                    document.getElementById('complianceSavings').textContent = '$' + Math.round(calc.annualAuditSavings / 1000) + 'K';
-                    document.getElementById('operationalRisk').textContent = '$' + Math.round(calc.annualErrorSavings / 1000) + 'K';
-                    // Update charts
-                    updateCharts(calc);
-                }
+        function updateROIDisplay(calc) {
+            // Executive summary
+            document.getElementById('totalROI').textContent = Math.round(calc.roi) + '%';
+            document.getElementById('paybackPeriod').textContent = calc.paybackMonths.toFixed(1);
+            document.getElementById('totalSavings').textContent = '$' + (calc.netThreeYearSavings / 1000000).toFixed(1) + 'M';
+            // Annual savings
+            document.getElementById('timeSavingsAmount').textContent = '$' + Math.round(calc.annualTimeSavings).toLocaleString();
+            document.getElementById('riskMitigationAmount').textContent = '$' + Math.round(calc.annualRiskMitigation).toLocaleString();
+            document.getElementById('errorReductionAmount').textContent = '$' + Math.round(calc.annualErrorSavings).toLocaleString();
+            document.getElementById('auditSavingsAmount').textContent = '$' + Math.round(calc.annualAuditSavings).toLocaleString();
+            // Current vs future state
+            document.getElementById('currentCycleDuration').textContent = calc.cycleDuration + ' weeks';
+            document.getElementById('futureCycleDuration').textContent = calc.newCycleDuration + ' weeks';
+            document.getElementById('currentLaborCost').textContent = '$' + Math.round(calc.currentAnnualLaborCost).toLocaleString();
+            document.getElementById('futureLaborCost').textContent = '$' + Math.round(calc.futureAnnualLaborCost).toLocaleString();
+            // Risk mitigation
+            document.getElementById('dataBreachRisk').textContent = '$' + Math.round(calc.annualRiskMitigation / 1000) + 'K';
+            document.getElementById('complianceSavings').textContent = '$' + Math.round(calc.annualAuditSavings / 1000) + 'K';
+            document.getElementById('operationalRisk').textContent = '$' + Math.round(calc.annualErrorSavings / 1000) + 'K';
+            // Update charts
+            updateCharts(calc);
+        }
 
-                function initializeCharts() {
-                    // Savings breakdown chart
-                    const savingsCtx = document.getElementById('savingsChart').getContext('2d');
-                    savingsChart = new Chart(savingsCtx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Time Savings', 'Risk Mitigation', 'Error Reduction', 'Audit Prep Savings'],
-                            datasets: [{
-                                data: [245000, 178000, 89000, 67000],
-                                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
-                                borderWidth: 2,
-                                borderColor: '#ffffff'
-                            }]
+        function initializeCharts() {
+            // Savings breakdown chart
+            const savingsCtx = document.getElementById('savingsChart').getContext('2d');
+            savingsChart = new Chart(savingsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Time Savings', 'Risk Mitigation', 'Error Reduction', 'Audit Prep Savings'],
+                    datasets: [{
+                        data: [245000, 178000, 89000, 67000],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+            // Investment vs savings chart
+            const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+            investmentChart = new Chart(investmentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Year 1', 'Year 2', 'Year 3'],
+                    datasets: [
+                        {
+                            label: 'Cumulative Investment',
+                            data: [150000, 300000, 450000],
+                            backgroundColor: '#ef4444',
+                            borderColor: '#dc2626',
+                            borderWidth: 1
                         },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
+                        {
+                            label: 'Cumulative Savings',
+                            data: [579000, 1158000, 1737000],
+                            backgroundColor: '#10b981',
+                            borderColor: '#059669',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
                                 }
                             }
                         }
-                    });
-                    // Investment vs savings chart
-                    const investmentCtx = document.getElementById('investmentChart').getContext('2d');
-                    investmentChart = new Chart(investmentCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Year 1', 'Year 2', 'Year 3'],
-                            datasets: [
-                                {
-                                    label: 'Cumulative Investment',
-                                    data: [150000, 300000, 450000],
-                                    backgroundColor: '#ef4444',
-                                    borderColor: '#dc2626',
-                                    borderWidth: 1
-                                },
-                                {
-                                    label: 'Cumulative Savings',
-                                    data: [579000, 1158000, 1737000],
-                                    backgroundColor: '#10b981',
-                                    borderColor: '#059669',
-                                    borderWidth: 1
-                                }
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        callback: function(value) {
-                                            return '$' + (value / 1000) + 'K';
-                                        }
-                                    }
-                                }
-                            },
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
                         }
-                    });
+                    }
                 }
+            });
+        }
 
-                function updateCharts(calc) {
-                    // Update savings chart
-                    savingsChart.data.datasets[0].data = [
-                        calc.annualTimeSavings,
-                        calc.annualRiskMitigation,
-                        calc.annualErrorSavings,
-                        calc.annualAuditSavings
-                    ];
-                    savingsChart.update();
-                    // Update investment chart
-                    const annualInvestment = calc.threeYearSecureSheetCost / 3;
-                    investmentChart.data.datasets[0].data = [
-                        annualInvestment,
-                        annualInvestment * 2,
-                        calc.threeYearSecureSheetCost
-                    ];
-                    investmentChart.data.datasets[1].data = [
-                        calc.totalAnnualSavings,
-                        calc.totalAnnualSavings * 2,
-                        calc.totalThreeYearSavings
-                    ];
-                    investmentChart.update();
-                }
+        function updateCharts(calc) {
+            // Update savings chart
+            savingsChart.data.datasets[0].data = [
+                calc.annualTimeSavings,
+                calc.annualRiskMitigation,
+                calc.annualErrorSavings,
+                calc.annualAuditSavings
+            ];
+            savingsChart.update();
+            // Update investment chart
+            const annualInvestment = calc.threeYearSecureSheetCost / 3;
+            investmentChart.data.datasets[0].data = [
+                annualInvestment,
+                annualInvestment * 2,
+                calc.threeYearSecureSheetCost
+            ];
+            investmentChart.data.datasets[1].data = [
+                calc.totalAnnualSavings,
+                calc.totalAnnualSavings * 2,
+                calc.totalThreeYearSavings
+            ];
+            investmentChart.update();
+        }
 
-                // --- Placeholder for form submission function ---
-                function submitDemoRequest(event) {
-                    event.preventDefault(); // Prevent default form submission for now
-                    // Add your form submission logic here (e.g., send data to a server)
-                    console.log("Demo request form submitted");
-                    alert("Demo request submitted! (This is a placeholder)");
-                    closeDemoModal(); // Close the modal after submission
-                }
-                // --- END Placeholder ---
-
-                // Handle "Watch Preview" button click
-                document.getElementById('btn-watch-preview').addEventListener('click', function () {
-                    const videoContainer = document.getElementById('watch-preview-video');
-                    const iframe = videoContainer.querySelector('iframe');
-
-                    // Set the iframe src to the YouTube video URL with autoplay
-                    // Note: Modern browsers often block autoplay unless muted or initiated by user gesture.
-                    // The original site likely uses a click handler to trigger this.
-                    iframe.src = "https://www.youtube.com/embed/nNBsLC9XQzI?autoplay=1&controls=1&origin=https://securesheet.com&loop=0&mute=0";
-
-                    // Show the video container
-                    videoContainer.classList.remove('hidden');
-                    // Hide the preview wrap
-                    document.getElementById('watch-preview-wrap').classList.add('hidden');
-                });
-
-            </script>
+        // --- Placeholder for form submission function ---
+        function submitDemoRequest(event) {
+            event.preventDefault(); // Prevent default form submission for now
+            // Add your form submission logic here (e.g., send data to a server)
+            console.log("Demo request form submitted");
+            alert("Demo request submitted! (This is a placeholder)");
+            closeDemoModal(); // Close the modal after submission
+        }
+        // --- END Placeholder ---
+    </script>
 </body>
 </html>

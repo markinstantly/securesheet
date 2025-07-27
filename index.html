@@ -356,74 +356,44 @@
         </div>
     </div>
     <!-- Simplified Footer -->
-    <footer class="bg-gray-100 py-12 mt-12">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Company Info Section -->
-                <div>
-                    <div class="mb-6">
-                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" class="mb-4" alt="securesheet logo" loading="lazy">
-                    </div>
-                    <p class="text-gray-600 text-sm mb-6">
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0">
+                    <img src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" alt="SecureSheet Logo" class="h-8 mb-4 filter invert"> <!-- Invert for dark background -->
+                    <p class="text-gray-400 text-sm max-w-md">
                         SecureSheet Technologies, LLC is a privately held company founded in 2003 with a vision of turning your spreadsheet chaos into managed business processes. Our focus is on usability and exceptional customer service.
                     </p>
-                    <!-- Demo Request Button - Redirects to main site -->
-                    <button class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" onclick="window.location.href='https://securesheet.com';">
+                </div>
+                <div class="flex flex-col items-center md:items-end space-y-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out transform hover:scale-105" onclick="window.location.href='https://securesheet.com';">
                         Request a Demo
                     </button>
-                </div>
-                <!-- Contact Section -->
-                <div>
-                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Contact</h4>
-                    <div class="space-y-2 text-sm text-gray-600 mb-6">
-                        <p><a href="mailto:sales@securesheet.com" class="hover:text-blue-600">sales@securesheet.com</a></p>
-                        <p><a href="mailto:help@securesheet.com" class="hover:text-blue-600">help@securesheet.com</a></p>
-                        <p><a href="tel:877.475.1153" class="hover:text-blue-600">877.475.1153</a></p>
-                    </div>
-                    <!-- Social Media -->
                     <div class="flex space-x-4">
-                        <a href="https://twitter.com/securesheet" target="_blank" class="text-gray-600 hover:text-blue-600">
-                            <i class="fab fa-x-twitter text-xl"></i>
+                        <a href="https://twitter.com/securesheet" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-x-twitter"></i>
                         </a>
-                        <a href="https://www.linkedin.com/company/securesheet-technologies/" target="_blank" class="text-gray-600 hover:text-blue-600">
-                            <i class="fab fa-linkedin text-xl"></i>
+                        <a href="https://www.linkedin.com/company/securesheet-technologies/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="https://www.facebook.com/SecureSheet" target="_blank" class="text-gray-600 hover:text-blue-600">
-                            <i class="fab fa-facebook text-xl"></i>
+                        <a href="https://www.facebook.com/SecureSheet" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
-                    </div>
-                </div>
-                <!-- Explore Section -->
-                <div>
-                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Explore</h4>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <ul class="space-y-2 text-sm text-gray-600">
-                                <li><a href="https://securesheet.com/product-online-spreadsheet/" class="hover:text-blue-600">Product</a></li>
-                                <li><a href="https://securesheet.com/features/" class="hover:text-blue-600">Features</a></li>
-                                <li><a href="https://securesheet.com/pricing/" class="hover:text-blue-600">Pricing</a></li>
-                                <li><a href="https://securesheet.com/support/" class="hover:text-blue-600">Support</a></li>
-                                <li><a href="https://securesheet.com/faqs/" class="hover:text-blue-600">FAQ</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul class="space-y-2 text-sm text-gray-600">
-                                <li><a href="https://securesheet.com/company/" class="hover:text-blue-600">Company</a></li>
-                                <li><a href="https://securesheet.com/security/" class="hover:text-blue-600">Security Statement</a></li>
-                                <li><a href="https://securesheet.com/news/" class="hover:text-blue-600">News</a></li>
-                                <li><a href="https://securesheet.com/privacy/" class="hover:text-blue-600">Privacy</a></li>
-                                <li><a href="https://securesheet.com/terms-of-use/" class="hover:text-blue-600">Terms of Use</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Copyright Section -->
-            <div class="border-t border-gray-300 mt-8 pt-6">
-                <div class="container mx-auto px-6">
-                    <p class="text-center text-sm text-gray-600">
-                        © 2002–2025 <a href="https://securesheet.com/" class="hover:text-blue-600">SecureSheet Technologies, LLC</a>.
-                    </p>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2002–2025 <a href="https://securesheet.com/" class="hover:text-white transition duration-300">SecureSheet Technologies, LLC</a>.</p>
+                <div class="mt-2 flex flex-wrap justify-center gap-4">
+                    <a href="https://securesheet.com/product-online-spreadsheet/" class="hover:text-white transition duration-300">Product</a>
+                    <a href="https://securesheet.com/features/" class="hover:text-white transition duration-300">Features</a>
+                    <a href="https://securesheet.com/pricing/" class="hover:text-white transition duration-300">Pricing</a>
+                    <a href="https://securesheet.com/support/" class="hover:text-white transition duration-300">Support</a>
+                    <a href="https://securesheet.com/faqs/" class="hover:text-white transition duration-300">FAQ</a>
+                    <a href="https://securesheet.com/company/" class="hover:text-white transition duration-300">Company</a>
+                    <a href="https://securesheet.com/security/" class="hover:text-white transition duration-300">Security</a>
+                    <a href="https://securesheet.com/privacy/" class="hover:text-white transition duration-300">Privacy</a>
+                    <a href="https://securesheet.com/terms-of-use/" class="hover:text-white transition duration-300">Terms of Use</a>
                 </div>
             </div>
         </div>
@@ -610,7 +580,7 @@
                     datasets: [
                         {
                             label: 'Cumulative Investment',
-                             [150000, 300000, 450000],
+                            data: [150000, 300000, 450000],
                             backgroundColor: '#ef4444',
                             borderColor: '#dc2626',
                             borderWidth: 1

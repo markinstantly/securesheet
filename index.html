@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureSheet ROI Calculator - Financial Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .slider-track { background: #e2e8f0; }
+        .slider-thumb { background: #3b82f6; }
+        .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .text-securesheet { color: #1e3a8a; }
+        .bg-securesheet { background-color: #1e3a8a; }
+        .border-securesheet { border-color: #1e3a8a; }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            border: none;
+        }
+        .metric-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-left: 4px solid #3b82f6;
+        }
+        .comparison-card {
+            background: linear-gradient(145deg, #fef2f2 0%, #ffffff 100%);
+        }
+        .future-card {
+            background: linear-gradient(145deg, #f0fdf4 0%, #ffffff 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-white bg-opacity-0 p-2 rounded">
+                        
+                    <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-light.webp" class="attachment-full size-full" alt="securesheet logo" loading="eager" decoding="async" srcset="https://securesheet.com/wp-content/uploads/securesheet-logo-light.webp 250w, https://securesheet.com/wp-content/uploads/securesheet-logo-light-200x24.webp 200w" sizes="auto, (max-width: 250px) 100vw, 250px" fetchpriority="high">                    </div>
+                </div>
+                <div class="text-right">
+                    <h2 class="text-xl font-semibold">ROI Calculator</h2>
+                    <p class="text-blue-200 text-sm">Financial Services Edition</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8">
+        <!-- Introduction -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Calculate Your SecureSheet Investment Return</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Discover the quantified benefits of implementing SecureSheet for your compensation management processes. 
+                Our calculator provides real-time ROI analysis tailored specifically for financial services companies.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-8">
+            <!-- Input Panel -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-lg p-6 card-shadow">
+                    <h3 class="text-xl font-bold text-securesheet mb-6 flex items-center">
+                        <i class="fas fa-calculator mr-2"></i>
+                        Company Information
+                    </h3>
+
+                    <!-- Company Size -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Number of Employees
+                        </label>
+                        <input type="range" id="companySize" min="500" max="50000" value="5000" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>500</span>
+                            <span id="companySizeValue" class="font-semibold text-securesheet">5,000</span>
+                            <span>50,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Annual Revenue -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Annual Revenue</label>
+                        <select id="annualRevenue" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="100000000">$100M - $250M</option>
+                            <option value="250000000">$250M - $500M</option>
+                            <option value="500000000" selected>$500M - $1B</option>
+                            <option value="1000000000">$1B - $2.5B</option>
+                            <option value="2500000000">$2.5B - $5B</option>
+                            <option value="5000000000">$5B - $10B</option>
+                            <option value="10000000000">$10B+</option>
+                        </select>
+                    </div>
+
+                    <!-- Industry Type -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Industry Type</label>
+                        <select id="industryType" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="banking" selected>Banking</option>
+                            <option value="insurance">Insurance</option>
+                            <option value="investment">Investment Management</option>
+                            <option value="credit">Credit Unions</option>
+                            <option value="other">Other Financial Services</option>
+                        </select>
+                    </div>
+
+                    <!-- Current Cycle Duration -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Current Compensation Cycle Duration (Weeks)
+                        </label>
+                        <input type="range" id="cycleDuration" min="4" max="20" value="12" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>4</span>
+                            <span id="cycleDurationValue" class="font-semibold text-securesheet">12</span>
+                            <span>20</span>
+                        </div>
+                    </div>
+
+                    <!-- HR Team Size -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            HR/Compensation Team Members
+                        </label>
+                        <input type="range" id="hrTeamSize" min="2" max="15" value="6" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>2</span>
+                            <span id="hrTeamSizeValue" class="font-semibold text-securesheet">6</span>
+                            <span>15</span>
+                        </div>
+                    </div>
+
+                    <!-- Average Hourly Rate -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Average Hourly Rate for Compensation Staff
+                        </label>
+                        <input type="range" id="hourlyRate" min="50" max="150" value="85" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>$50</span>
+                            <span id="hourlyRateValue" class="font-semibold text-securesheet">$85</span>
+                            <span>$150</span>
+                        </div>
+                    </div>
+
+                    <!-- Number of Managers -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Managers Participating in Reviews
+                        </label>
+                        <input type="range" id="managerCount" min="10" max="500" value="100" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>10</span>
+                            <span id="managerCountValue" class="font-semibold text-securesheet">100</span>
+                            <span>500</span>
+                        </div>
+                    </div>
+
+                    <!-- Current Software Costs -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Current Annual Software/Tool Costs ($)
+                        </label>
+                        <input type="range" id="currentSoftwareCosts" min="0" max="100000" value="25000" step="1000" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>$0</span>
+                            <span id="currentSoftwareCostsValue" class="font-semibold text-securesheet">$25,000</span>
+                            <span>$100K</span>
+                        </div>
+                    </div>
+
+                    <!-- Manual Hours Per Person -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Manual Hours Per Person Per Cycle
+                        </label>
+                        <input type="range" id="manualHours" min="5" max="40" value="20" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>5</span>
+                            <span id="manualHoursValue" class="font-semibold text-securesheet">20</span>
+                            <span>40</span>
+                        </div>
+                    </div>
+
+                    <!-- Cycles Per Year -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Compensation Cycles Per Year
+                        </label>
+                        <input type="range" id="cyclesPerYear" min="1" max="4" value="2" class="w-full mb-2">
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>1</span>
+                            <span id="cyclesPerYearValue" class="font-semibold text-securesheet">2</span>
+                            <span>4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="lg:col-span-3">
+                <!-- Executive Summary -->
+                <div class="bg-white rounded-lg shadow-lg p-6 card-shadow mb-6">
+                    <h3 class="text-xl font-bold text-securesheet mb-4 flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        Executive ROI Summary
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="metric-card p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600" id="totalROI">342%</div>
+                            <div class="text-sm text-gray-600">3-Year ROI</div>
+                        </div>
+                        <div class="metric-card p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600" id="paybackPeriod">8.2</div>
+                            <div class="text-sm text-gray-600">Payback (Months)</div>
+                        </div>
+                        <div class="metric-card p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600" id="totalSavings">$1.2M</div>
+                            <div class="text-sm text-gray-600">3-Year Net Savings</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Annual Savings Breakdown -->
+                <div class="bg-white rounded-lg shadow-lg p-6 card-shadow mb-6">
+                    <h3 class="text-xl font-bold text-securesheet mb-4 flex items-center">
+                        <i class="fas fa-piggy-bank mr-2"></i>
+                        Annual Savings Breakdown
+                    </h3>
+                    <div class="h-64 mb-4">
+                        <canvas id="savingsChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between">
+                            <span>Time Savings:</span>
+                            <span class="font-semibold" id="timeSavingsAmount">$245,000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Risk Mitigation:</span>
+                            <span class="font-semibold" id="riskMitigationAmount">$178,000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Error Reduction:</span>
+                            <span class="font-semibold" id="errorReductionAmount">$89,000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Audit Prep Savings:</span>
+                            <span class="font-semibold" id="auditSavingsAmount">$67,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-Year Investment vs Savings -->
+                <div class="bg-white rounded-lg shadow-lg p-6 card-shadow mb-6">
+                    <h3 class="text-xl font-bold text-securesheet mb-4 flex items-center">
+                        <i class="fas fa-chart-bar mr-2"></i>
+                        3-Year Investment vs. Cumulative Savings
+                    </h3>
+                    <div class="h-64">
+                        <canvas id="investmentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Current vs Future State Comparison -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="comparison-card rounded-lg p-6 border-l-4 border-red-500">
+                        <h4 class="text-lg font-bold text-red-700 mb-4 flex items-center">
+                            <i class="fas fa-times-circle mr-2"></i>
+                            Current State
+                        </h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span>Cycle Duration:</span>
+                                <span class="font-semibold" id="currentCycleDuration">12 weeks</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Annual Labor Cost:</span>
+                                <span class="font-semibold" id="currentLaborCost">$326,400</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Error Rate Impact:</span>
+                                <span class="font-semibold text-red-600">High</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Audit Readiness:</span>
+                                <span class="font-semibold text-red-600">Manual/Time-intensive</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Data Security Risk:</span>
+                                <span class="font-semibold text-red-600">Elevated</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="future-card rounded-lg p-6 border-l-4 border-green-500">
+                        <h4 class="text-lg font-bold text-green-700 mb-4 flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            With SecureSheet
+                        </h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span>Cycle Duration:</span>
+                                <span class="font-semibold" id="futureCycleDuration">3 weeks</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Annual Labor Cost:</span>
+                                <span class="font-semibold" id="futureLaborCost">$81,600</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Error Rate Impact:</span>
+                                <span class="font-semibold text-green-600">Minimal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Audit Readiness:</span>
+                                <span class="font-semibold text-green-600">Automated/Instant</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Data Security Risk:</span>
+                                <span class="font-semibold text-green-600">Enterprise-grade</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Reduction Quantification -->
+                <div class="bg-white rounded-lg shadow-lg p-6 card-shadow">
+                    <h3 class="text-xl font-bold text-securesheet mb-4 flex items-center">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Financial Services Risk Mitigation
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600" id="dataBreachRisk">$178K</div>
+                            <div class="text-sm text-gray-600">Data Breach Risk Reduction</div>
+                            <div class="text-xs text-gray-500 mt-1">40% risk reduction</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600" id="complianceSavings">$67K</div>
+                            <div class="text-sm text-gray-600">Compliance Cost Savings</div>
+                            <div class="text-xs text-gray-500 mt-1">80% audit prep reduction</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600" id="operationalRisk">$89K</div>
+                            <div class="text-sm text-gray-600">Operational Risk Reduction</div>
+                            <div class="text-xs text-gray-500 mt-1">Version control & errors</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <footer class="bg-gray-100 py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Company Info Section -->
+                <div>
+                    <div class="mb-6">
+                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" class="mb-4" alt="securesheet logo" loading="lazy">
+                    </div>
+                    <p class="text-gray-600 text-sm mb-6">
+                        SecureSheet Technologies, LLC is a privately held company founded in 2003 with a vision of turning your spreadsheet chaos into managed business processes. Our focus is on usability and exceptional customer service.
+                    </p>
+                    
+                    <!-- Demo Request Button -->
+                    <button class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" onclick="openDemoModal()">
+                        Request a Demo
+                    </button>
+                </div>
+
+                <!-- Contact Section -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Contact</h4>
+                    <div class="space-y-2 text-sm text-gray-600 mb-6">
+                        <p><a href="mailto:sales@securesheet.com" class="hover:text-blue-600">sales@securesheet.com</a></p>
+                        <p><a href="mailto:help@securesheet.com" class="hover:text-blue-600">help@securesheet.com</a></p>
+                        <p><a href="tel:877.475.1153" class="hover:text-blue-600">877.475.1153</a></p>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="flex space-x-4">
+                        <a href="https://twitter.com/securesheet" target="_blank" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-x-twitter text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/securesheet-technologies/" target="_blank" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="https://www.facebook.com/SecureSheet" target="_blank" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Explore Section -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Explore</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><a href="https://securesheet.com/product-online-spreadsheet/" class="hover:text-blue-600">Product</a></li>
+                                <li><a href="https://securesheet.com/features/" class="hover:text-blue-600">Features</a></li>
+                                <li><a href="https://securesheet.com/pricing/" class="hover:text-blue-600">Pricing</a></li>
+                                <li><a href="https://securesheet.com/support/" class="hover:text-blue-600">Support</a></li>
+                                <li><a href="https://securesheet.com/faqs/" class="hover:text-blue-600">FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><a href="https://securesheet.com/company/" class="hover:text-blue-600">Company</a></li>
+                                <li><a href="https://securesheet.com/security/" class="hover:text-blue-600">Security Statement</a></li>
+                                <li><a href="https://securesheet.com/news/" class="hover:text-blue-600">News</a></li>
+                                <li><a href="https://securesheet.com/privacy/" class="hover:text-blue-600">Privacy</a></li>
+                                <li><a href="https://securesheet.com/terms-of-use/" class="hover:text-blue-600">Terms of Use</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="border-t border-gray-300 mt-8 pt-6">
+            <div class="container mx-auto px-6">
+                <p class="text-center text-sm text-gray-600">
+                    © 2002–2025 <a href="https://securesheet.com/" class="hover:text-blue-600">SecureSheet Technologies, LLC</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="fixed inset-0 bg-black bg-opacity-85 hidden z-50" style="display: none;">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full relative" style="border-radius: 10px;">
+                <!-- Close button -->
+                <button onclick="closeDemoModal()" class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 z-10">
+                    <i class="fas fa-times text-gray-600"></i>
+                </button>
+                
+                <!-- Desktop version -->
+                <div class="hidden md:block">
+                    <!-- Video Preview Section -->
+                    <div id="watch-preview-wrap" class="text-center py-8 px-6">
+                        <div class="mb-4">
+                            <p class="text-xl font-normal">Request a 20-minute <strong>Demo</strong></p>
+                        </div>
+                        <div class="mb-6">
+                            <p class="text-gray-600">Find out how we can help you</p>
+                        </div>
+                        <div class="mb-6">
+                            <button class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" id="btn-watch-preview">
+                                Watch Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Container (initially hidden) -->
+                    <div id="watch-preview-video" class="hidden px-6 pb-4">
+                        <div class="relative w-full" style="padding-bottom: 56.25%; height: 0;">
+                            <iframe 
+                                title="Youtube video player" 
+                                src="" 
+                                data-src="https://www.youtube.com/embed/nNBsLC9XQzI?autoplay=1&controls=1&origin=https://securesheet.com&loop=0&mute=0" 
+                                allowfullscreen="1" 
+                                loading="lazy"
+                                class="absolute top-0 left-0 w-full h-full rounded">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile version -->
+                <div class="block md:hidden bg-blue-600 text-white text-center py-6 px-4 rounded-t-lg">
+                    <p class="text-xl font-normal">Request a 20-minute <strong>Demo</strong></p>
+                    <p class="text-blue-200 mt-2">Find out how we can help you</p>
+                </div>
+                
+                <!-- Form Section -->
+                <div class="p-6">
+                    <div class="text-sm text-gray-600 mb-4">
+                        Fields marked with an <span class="text-red-500">*</span> are required
+                    </div>
+                    
+                    <form onsubmit="submitDemoRequest(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Name *" name="name">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Email *" name="email">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Phone <span class="text-red-500">*</span>
+                            </label>
+                            <input type="tel" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Phone *" name="phone">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Company <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Company *" name="company">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Share more about your project needs
+                            </label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Share more about your project needs" name="project_needs">
+                        </div>
+                        
+                        <!-- Honeypot field (hidden) -->
+                        <div style="display: none;">
+                            <label>If you are a human seeing this field, please leave it empty.</label>
+                            <input type="text" name="honeypot" value="">
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-semibold hover:bg-blue-700 transition-colors">
+                            Request Demo
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables for calculations
+        let savingsChart, investmentChart;
+
+        // Initialize the calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners for all inputs
+            const inputs = [
+                'companySize', 'annualRevenue', 'cycleDuration', 'hrTeamSize', 
+                'hourlyRate', 'managerCount', 'currentSoftwareCosts', 
+                'manualHours', 'cyclesPerYear', 'industryType'
+            ];
+
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updateCalculations);
+                    element.addEventListener('change', updateCalculations);
+                }
+            });
+
+            // Initialize charts
+            initializeCharts();
+            
+            // Initial calculations
+            updateCalculations();
+        });
+
+        function updateCalculations() {
+            // Get input values
+            const companySize = parseInt(document.getElementById('companySize').value);
+            const annualRevenue = parseInt(document.getElementById('annualRevenue').value);
+            const cycleDuration = parseInt(document.getElementById('cycleDuration').value);
+            const hrTeamSize = parseInt(document.getElementById('hrTeamSize').value);
+            const hourlyRate = parseInt(document.getElementById('hourlyRate').value);
+            const managerCount = parseInt(document.getElementById('managerCount').value);
+            const currentSoftwareCosts = parseInt(document.getElementById('currentSoftwareCosts').value);
+            const manualHours = parseInt(document.getElementById('manualHours').value);
+            const cyclesPerYear = parseInt(document.getElementById('cyclesPerYear').value);
+            const industryType = document.getElementById('industryType').value;
+
+            // Update display values
+            document.getElementById('companySizeValue').textContent = companySize.toLocaleString();
+            document.getElementById('cycleDurationValue').textContent = cycleDuration;
+            document.getElementById('hrTeamSizeValue').textContent = hrTeamSize;
+            document.getElementById('hourlyRateValue').textContent = '$' + hourlyRate;
+            document.getElementById('managerCountValue').textContent = managerCount;
+            document.getElementById('currentSoftwareCostsValue').textContent = '$' + currentSoftwareCosts.toLocaleString();
+            document.getElementById('manualHoursValue').textContent = manualHours;
+            document.getElementById('cyclesPerYearValue').textContent = cyclesPerYear;
+
+            // Calculate benefits
+            const calculations = calculateROI({
+                companySize, annualRevenue, cycleDuration, hrTeamSize, 
+                hourlyRate, managerCount, currentSoftwareCosts, 
+                manualHours, cyclesPerYear, industryType
+            });
+
+            // Update UI with calculations
+            updateROIDisplay(calculations);
+        }
+
+        function calculateROI(inputs) {
+            const {
+                companySize, annualRevenue, cycleDuration, hrTeamSize,
+                hourlyRate, managerCount, currentSoftwareCosts,
+                manualHours, cyclesPerYear, industryType
+            } = inputs;
+
+            // SecureSheet costs
+            const usersNeeded = Math.max(25, Math.ceil((hrTeamSize + managerCount) * 1.2)); // 20% buffer
+            const monthlySecureSheetCost = usersNeeded * 40;
+            const annualSecureSheetCost = monthlySecureSheetCost * 12;
+            const threeYearSecureSheetCost = annualSecureSheetCost * 3;
+
+            // Time savings (75% reduction in cycle time)
+            const currentCycleHours = cycleDuration * 40; // weeks to hours
+            const newCycleHours = currentCycleHours * 0.25; // 75% reduction
+            const hoursSavedPerCycle = currentCycleHours - newCycleHours;
+            const totalPeopleInvolved = hrTeamSize + managerCount;
+            const totalManualHoursCurrently = totalPeopleInvolved * manualHours * cyclesPerYear;
+            const totalManualHoursWithSecureSheet = totalManualHoursCurrently * 0.25; // 75% reduction
+            const annualHoursSaved = totalManualHoursCurrently - totalManualHoursWithSecureSheet;
+            const annualTimeSavings = annualHoursSaved * hourlyRate;
+
+            // Labor cost reduction
+            const currentAnnualLaborCost = totalManualHoursCurrently * hourlyRate;
+            const futureAnnualLaborCost = totalManualHoursWithSecureSheet * hourlyRate;
+            const annualLaborSavings = currentAnnualLaborCost - futureAnnualLaborCost;
+
+            // Risk mitigation (data breach cost avoidance)
+            const averageBreachCost = 4450000; // $4.45M
+            let riskReductionPercent = 0.4; // 40% risk reduction baseline
+            if (industryType === 'banking') riskReductionPercent = 0.45;
+            else if (industryType === 'insurance') riskReductionPercent = 0.42;
+            else if (industryType === 'investment') riskReductionPercent = 0.48;
+            
+            const annualRiskMitigation = (averageBreachCost * riskReductionPercent) / 10; // Amortized over 10 years
+
+            // Audit preparation savings (80% reduction)
+            const estimatedAnnualAuditHours = Math.max(40, companySize / 200); // Baseline audit prep hours
+            const auditHourlyRate = hourlyRate * 1.5; // Premium rate for audit work
+            const currentAuditCost = estimatedAnnualAuditHours * auditHourlyRate;
+            const futureAuditCost = currentAuditCost * 0.2; // 80% reduction
+            const annualAuditSavings = currentAuditCost - futureAuditCost;
+
+            // Error reduction benefits
+            const errorCostPerCycle = Math.min(50000, annualRevenue / 10000); // Based on revenue size
+            const currentErrorCost = errorCostPerCycle * cyclesPerYear;
+            const futureErrorCost = currentErrorCost * 0.1; // 90% error reduction
+            const annualErrorSavings = currentErrorCost - futureErrorCost;
+
+            // Total annual savings
+            const totalAnnualSavings = annualTimeSavings + annualRiskMitigation + annualAuditSavings + annualErrorSavings;
+            
+            // 3-year calculations
+            const totalThreeYearSavings = totalAnnualSavings * 3;
+            const netThreeYearSavings = totalThreeYearSavings - threeYearSecureSheetCost - (currentSoftwareCosts * 3);
+            
+            // ROI calculations
+            const totalInvestment = threeYearSecureSheetCost;
+            const roi = ((netThreeYearSavings / totalInvestment) * 100);
+            const paybackMonths = (totalInvestment / (totalAnnualSavings / 12));
+
+            return {
+                annualTimeSavings,
+                annualRiskMitigation,
+                annualAuditSavings,
+                annualErrorSavings,
+                totalAnnualSavings,
+                netThreeYearSavings,
+                roi,
+                paybackMonths,
+                currentAnnualLaborCost,
+                futureAnnualLaborCost,
+                cycleDuration,
+                newCycleDuration: Math.ceil(cycleDuration * 0.25),
+                threeYearSecureSheetCost,
+                totalThreeYearSavings
+            };
+        }
+
+        function updateROIDisplay(calc) {
+            // Executive summary
+            document.getElementById('totalROI').textContent = Math.round(calc.roi) + '%';
+            document.getElementById('paybackPeriod').textContent = calc.paybackMonths.toFixed(1);
+            document.getElementById('totalSavings').textContent = '$' + (calc.netThreeYearSavings / 1000000).toFixed(1) + 'M';
+
+            // Annual savings
+            document.getElementById('timeSavingsAmount').textContent = '$' + Math.round(calc.annualTimeSavings).toLocaleString();
+            document.getElementById('riskMitigationAmount').textContent = '$' + Math.round(calc.annualRiskMitigation).toLocaleString();
+            document.getElementById('errorReductionAmount').textContent = '$' + Math.round(calc.annualErrorSavings).toLocaleString();
+            document.getElementById('auditSavingsAmount').textContent = '$' + Math.round(calc.annualAuditSavings).toLocaleString();
+
+            // Current vs future state
+            document.getElementById('currentCycleDuration').textContent = calc.cycleDuration + ' weeks';
+            document.getElementById('futureCycleDuration').textContent = calc.newCycleDuration + ' weeks';
+            document.getElementById('currentLaborCost').textContent = '$' + Math.round(calc.currentAnnualLaborCost).toLocaleString();
+            document.getElementById('futureLaborCost').textContent = '$' + Math.round(calc.futureAnnualLaborCost).toLocaleString();
+
+            // Risk mitigation
+            document.getElementById('dataBreachRisk').textContent = '$' + Math.round(calc.annualRiskMitigation / 1000) + 'K';
+            document.getElementById('complianceSavings').textContent = '$' + Math.round(calc.annualAuditSavings / 1000) + 'K';
+            document.getElementById('operationalRisk').textContent = '$' + Math.round(calc.annualErrorSavings / 1000) + 'K';
+
+            // Update charts
+            updateCharts(calc);
+        }
+
+        function initializeCharts() {
+            // Savings breakdown chart
+            const savingsCtx = document.getElementById('savingsChart').getContext('2d');
+            savingsChart = new Chart(savingsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Time Savings', 'Risk Mitigation', 'Error Reduction', 'Audit Prep Savings'],
+                    datasets: [{
+                        data: [245000, 178000, 89000, 67000],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+
+            // Investment vs savings chart
+            const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+            investmentChart = new Chart(investmentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Year 1', 'Year 2', 'Year 3'],
+                    datasets: [
+                        {
+                            label: 'Cumulative Investment',
+                            data: [150000, 300000, 450000],
+                            backgroundColor: '#ef4444',
+                            borderColor: '#dc2626',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Cumulative Savings',
+                            data: [579000, 1158000, 1737000],
+                            backgroundColor: '#10b981',
+                            borderColor: '#059669',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts(calc) {
+            // Update savings chart
+            savingsChart.data.datasets[0].data = [
+                calc.annualTimeSavings,
+                calc.annualRiskMitigation,
+                calc.annualErrorSavings,
+                calc.annualAuditSavings
+            ];
+            savingsChart.update();
+
+            // Update investment chart
+            const annualInvestment = calc.threeYearSecureSheetCost / 3;
+            investmentChart.data.datasets[0].data = [
+                annualInvestment,
+                annualInvestment * 2,
+                calc.threeYearSecureSheetCost
+            ];
+            investmentChart.data.datasets[1].data = [
+                calc.totalAnnualSavings,
+                calc.totalAnnualSavings * 2,
+                calc.totalThreeYearSavings
+            ];
+            investmentChart.update();
+        }
+    </script>
+</body>
+</html>

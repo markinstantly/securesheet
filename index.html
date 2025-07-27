@@ -355,128 +355,78 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer id="page-footer" class="l-footer" itemscope="" itemtype="https://schema.org/WPFooter">
-        <section class="l-section wpb_row us_custom_c6fcdd89 height_medium color_footer-bottom">
-            <div class="l-section-h i-cf">
-                <div class="g-cols vc_row via_flex valign_top type_default stacking_default">
-                    <div class="vc_col-sm-4 wpb_column vc_column_container">
-                        <div class="vc_column-inner us_custom_bcc59428">
-                            <div class="wpb_wrapper">
-                                <div class="w-image us_custom_81135851 align_none">
-                                    <a href="https://securesheet.com/" aria-label="securesheet-logo-dark" class="w-image-h">
-                                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" class="attachment-full size-full" alt="securesheet logo" loading="lazy" decoding="async" srcset="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp 250w, https://securesheet.com/wp-content/uploads/securesheet-logo-dark-200x24.webp 200w" sizes="auto, (max-width: 250px) 100vw, 250px">
-                                    </a>
-                                </div>
-                                <div class="wpb_text_column">
-                                    <div class="wpb_wrapper">
-                                        <p>SecureSheet Technologies, LLC is a privately held company founded in 2003 with a vision of turning your spreadsheet chaos into managed business processes. Our focus is on usability and exceptional customer service.</p>
-                                    </div>
-                                </div>
-                                <!-- Demo Request Button (Standalone version) - Redirects to main site -->
-                                <button class="w-btn us-btn-style_1 request-demo bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" onclick="window.location.href='https://securesheet.com';">
-                                    <span class="w-btn-label">Request a Demo</span>
-                                </button>
-                            </div>
-                        </div>
+    <!-- Simplified Footer -->
+    <footer class="bg-gray-100 py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Company Info Section -->
+                <div>
+                    <div class="mb-6">
+                        <img width="250" height="30" src="https://securesheet.com/wp-content/uploads/securesheet-logo-dark.webp" class="mb-4" alt="securesheet logo" loading="lazy">
                     </div>
-                    <div class="vc_col-sm-4 wpb_column vc_column_container">
-                        <div class="vc_column-inner us_custom_0486adaf">
-                            <div class="wpb_wrapper">
-                                <div class="w-text us_custom_0070af4c">
-                                    <span class="w-text-h"><span class="w-text-value">Contact</span></span>
-                                </div>
-                                <div class="wpb_text_column us_custom_d0473ef7">
-                                    <div class="wpb_wrapper">
-                                        <p>
-                                            <a href="mailto:sales@securesheet.com">sales@securesheet.com</a><br>
-                                            <a href="mailto:help@securesheet.com">help@securesheet.com</a><br>
-                                            <a href="tel:877.475.1153">877.475.1153</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="w-socials us_custom_c4c549e3 has_text_color color_text shape_none" style="--gap:0.5em;">
-                                    <div class="w-socials-list">
-                                        <div class="w-socials-item twitter">
-                                            <a target="_blank" rel="nofollow" href="https://twitter.com/securesheet" class="w-socials-item-link" aria-label="X">
-                                                <span class="w-socials-item-link-hover"></span>
-                                                <i class="fab fa-x-twitter"><svg style="width:1em; margin-bottom:-.1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg></i>
-                                            </a>
-                                            <div class="w-socials-item-popup"><span>X</span></div>
-                                        </div>
-                                        <div class="w-socials-item linkedin">
-                                            <a target="_blank" rel="nofollow" href="https://www.linkedin.com/company/securesheet-technologies/" class="w-socials-item-link" aria-label="LinkedIn">
-                                                <span class="w-socials-item-link-hover"></span>
-                                                <i class="fab fa-linkedin"></i>
-                                            </a>
-                                            <div class="w-socials-item-popup"><span>LinkedIn</span></div>
-                                        </div>
-                                        <div class="w-socials-item facebook">
-                                            <a target="_blank" rel="nofollow" href="https://www.facebook.com/SecureSheet" class="w-socials-item-link" aria-label="Facebook">
-                                                <span class="w-socials-item-link-hover"></span>
-                                                <i class="fab fa-facebook"></i>
-                                            </a>
-                                            <div class="w-socials-item-popup"><span>Facebook</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <p class="text-gray-600 text-sm mb-6">
+                        SecureSheet Technologies, LLC is a privately held company founded in 2003 with a vision of turning your spreadsheet chaos into managed business processes. Our focus is on usability and exceptional customer service.
+                    </p>
+                    <!-- Demo Request Button - Redirects to main site -->
+                    <button class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors" onclick="window.location.href='https://securesheet.com';">
+                        Request a Demo
+                    </button>
+                </div>
+                <!-- Contact Section -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Contact</h4>
+                    <div class="space-y-2 text-sm text-gray-600 mb-6">
+                        <p><a href="mailto:sales@securesheet.com" class="hover:text-blue-600">sales@securesheet.com</a></p>
+                        <p><a href="mailto:help@securesheet.com" class="hover:text-blue-600">help@securesheet.com</a></p>
+                        <p><a href="tel:877.475.1153" class="hover:text-blue-600">877.475.1153</a></p>
                     </div>
-                    <div class="vc_col-sm-4 wpb_column vc_column_container">
-                        <div class="vc_column-inner us_custom_27db4eef">
-                            <div class="wpb_wrapper">
-                                <div class="w-text us_custom_0070af4c">
-                                    <span class="w-text-h"><span class="w-text-value">Explore</span></span>
-                                </div>
-                                <div class="w-hwrapper valign_top align_none" style="--hwrapper-gap:3rem">
-                                    <nav class="w-menu us_custom_d0473ef7 layout_ver style_links us_menu_1" style="--main-gap:0.25rem;--main-ver-indent:0.8em;--main-hor-indent:0.8em;--main-color:inherit;">
-                                        <ul id="menu-footer-1" class="menu">
-                                            <li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://securesheet.com/product-online-spreadsheet/">Product</a></li>
-                                            <li id="menu-item-1583" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1583"><a href="https://securesheet.com/features/">Features</a></li>
-                                            <li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57"><a href="https://securesheet.com/pricing/">Pricing</a></li>
-                                            <li id="menu-item-58" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-58"><a href="https://securesheet.com/support/">Support</a></li>
-                                            <li id="menu-item-59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-59"><a href="https://securesheet.com/faqs/">FAQ</a></li>
-                                        </ul>
-                                        <style>@media ( max-width:600px ){.us_menu_1 .menu{display:block!important}.us_menu_1 .menu>li{margin:0 0 var(--main-gap,0.25rem)!important}}</style>
-                                    </nav>
-                                    <nav class="w-menu us_custom_d0473ef7 layout_ver style_links us_menu_2" style="--main-gap:0.25rem;--main-ver-indent:0.8em;--main-hor-indent:0.8em;--main-color:inherit;">
-                                        <ul id="menu-footer-2" class="menu">
-                                            <li id="menu-item-60" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-60"><a href="https://securesheet.com/company/">Company</a></li>
-                                            <li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="https://securesheet.com/security/">Security Statement</a></li>
-                                            <li id="menu-item-62" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-62"><a rel="privacy-policy" href="https://securesheet.com/privacy/">Privacy</a></li>
-                                            <li id="menu-item-63" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-63"><a href="https://securesheet.com/terms-of-use/">Terms of Use</a></li>
-                                        </ul>
-                                        <style>@media ( max-width:600px ){.us_menu_2 .menu{display:block!important}.us_menu_2 .menu>li{margin:0 0 var(--main-gap,0.25rem)!important}}</style>
-                                    </nav>
-                                </div>
-                                <!-- Demo Request Button (Standalone version) - Hidden on larger screens to match original, now redirects -->
-                                <div class="w-btn-wrapper align_none hidden md:block">
-                                    <a class="w-btn us-btn-style_1 us_custom_5c07cc07 request-demo bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition-colors no-underline" href="#" onclick="event.preventDefault(); window.location.href='https://securesheet.com';">
-                                        <span class="w-btn-label">Request a Demo</span>
-                                    </a>
-                                </div>
-                            </div>
+                    <!-- Social Media -->
+                    <div class="flex space-x-4">
+                        <a href="https://twitter.com/securesheet" target="_blank" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-x-twitter text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/securesheet-technologies/" target="_blank" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="https://www.facebook.com/SecureSheet" target="_blank" class="text-gray-600 hover:text-blue-600">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Explore Section -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Explore</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><a href="https://securesheet.com/product-online-spreadsheet/" class="hover:text-blue-600">Product</a></li>
+                                <li><a href="https://securesheet.com/features/" class="hover:text-blue-600">Features</a></li>
+                                <li><a href="https://securesheet.com/pricing/" class="hover:text-blue-600">Pricing</a></li>
+                                <li><a href="https://securesheet.com/support/" class="hover:text-blue-600">Support</a></li>
+                                <li><a href="https://securesheet.com/faqs/" class="hover:text-blue-600">FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><a href="https://securesheet.com/company/" class="hover:text-blue-600">Company</a></li>
+                                <li><a href="https://securesheet.com/security/" class="hover:text-blue-600">Security Statement</a></li>
+                                <li><a href="https://securesheet.com/news/" class="hover:text-blue-600">News</a></li>
+                                <li><a href="https://securesheet.com/privacy/" class="hover:text-blue-600">Privacy</a></li>
+                                <li><a href="https://securesheet.com/terms-of-use/" class="hover:text-blue-600">Terms of Use</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="l-section wpb_row us_custom_8770fb93 height_auto color_footer-bottom">
-            <div class="l-section-h i-cf">
-                <div class="g-cols vc_row via_flex valign_top type_default stacking_default">
-                    <div class="vc_col-sm-12 wpb_column vc_column_container">
-                        <div class="vc_column-inner">
-                            <div class="wpb_wrapper">
-                                <div class="wpb_text_column us_custom_442edfb2">
-                                    <div class="wpb_wrapper">© 2002–2025 <a href="https://securesheet.com/">SecureSheet Technologies, LLC</a>.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Copyright Section -->
+            <div class="border-t border-gray-300 mt-8 pt-6">
+                <div class="container mx-auto px-6">
+                    <p class="text-center text-sm text-gray-600">
+                        © 2002–2025 <a href="https://securesheet.com/" class="hover:text-blue-600">SecureSheet Technologies, LLC</a>.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
     </footer>
 
     <script>
@@ -660,7 +610,7 @@
                     datasets: [
                         {
                             label: 'Cumulative Investment',
-                            data: [150000, 300000, 450000],
+                             [150000, 300000, 450000],
                             backgroundColor: '#ef4444',
                             borderColor: '#dc2626',
                             borderWidth: 1
